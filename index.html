@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science Lesson - Problem Solving and Programming</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            height: 4px;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            background: #fff;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialogue-display {
+            text-align: center;
+            width: 100%;
+        }
+
+        .line-counter {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .speaker-display {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            min-height: 30px;
+        }
+
+        .speaker-teacher {
+            color: #d946a6;
+        }
+
+        .speaker-yuna {
+            color: #ec4899;
+        }
+
+        .speaker-felix {
+            color: #f59e0b;
+        }
+
+        .speaker-marcus {
+            color: #10b981;
+        }
+
+        .speaker-sophy {
+            color: #3b82f6;
+        }
+
+        .dialogue-text {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls-section {
+            background: #f3f4f6;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .control-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .control-group input[type="range"],
+        .control-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="range"] {
+            width: 120px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .speak-btn {
+            background-color: #667eea;
+            color: white;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .speak-btn:hover:not(:disabled) {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .speak-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .stop-btn {
+            background-color: #ef4444;
+            color: white;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .stop-btn:hover:not(:disabled) {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .stop-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: #10b981;
+            color: white;
+            min-width: 100px;
+            justify-content: center;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .status {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            border-radius: 5px;
+            color: #1e40af;
+            font-size: 14px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 30px;
+            text-align: center;
+            color: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .footer-instructions {
+            opacity: 0.9;
+            font-size: 13px;
+        }
+
+        .footer-credit {
+            opacity: 0.85;
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .footer-copyright {
+            opacity: 0.75;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .dialogue-text {
+                font-size: 18px;
+                min-height: 80px;
+            }
+
+            .speaker-display {
+                font-size: 16px;
+            }
+
+            .button-container,
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .control-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group input[type="range"],
+            .control-group select {
+                width: 100%;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .footer {
+                padding: 15px 20px;
+            }
+
+            .footer-content {
+                font-size: 12px;
+            }
+
+            .footer-instructions {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💻 Computer Science Lesson</h1>
+            <p>Problem Solving and Programming</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="line-counter">
+                Line <span id="currentLine">1</span> of <span id="totalLines">14</span>
+            </div>
+
+            <div class="dialogue-display">
+                <div class="speaker-display" id="speakerDisplay"></div>
+                <div class="dialogue-text" id="dialogueText"></div>
+            </div>
+
+            <div class="controls-section">
+                <div class="control-label">⚙️ Speech Settings</div>
+                <div class="control-group">
+                    <label>
+                        Speed:
+                        <input type="range" id="speedControl" min="0.5" max="2" step="0.1" value="1">
+                        <span id="speedValue">1x</span>
+                    </label>
+                    <label>
+                        Pitch:
+                        <input type="range" id="pitchControl" min="0.5" max="2" step="0.1" value="1">
+                        <span id="pitchValue">1x</span>
+                    </label>
+                    <label>
+                        Language:
+                        <select id="languageControl">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="fr-FR">French</option>
+                            <option value="de-DE">German</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="speak-btn" id="speakBtn">
+                    <span class="icon">🔊</span> Speak
+                </button>
+                <button class="stop-btn" id="stopBtn" disabled>
+                    <span class="icon">⏹️</span> Stop
+                </button>
+            </div>
+
+            <div class="status" id="status"></div>
+        </div>
+
+        <div style="padding: 0 30px 20px;">
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn">
+                    <span class="icon">◀</span> Previous
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    <span class="icon">▶</span> Next
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-instructions">
+                    📌 Use arrow keys to navigate or click Previous/Next buttons. Press Spacebar to speak.
+                </div>
+                <div class="footer-credit">
+                    ✨ Created by: <strong>Eltayeb Mohamed</strong>
+                </div>
+                <div class="footer-copyright">
+                    © 2026 Computer Science Learning Platform. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dialogue = [
+            {
+                speaker: "Teacher",
+                text: "Today we are learning about problem solving and programming. These are fundamental skills in computer science. Before we write any code, we need to understand how to approach problems systematically. Does anyone know what problem solving means in programming?",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Yuna",
+                text: "Problem solving is when you break down a complex problem into smaller, manageable steps, right? Like dividing a big task into smaller tasks?",
+                class: "speaker-yuna"
+            },
+            {
+                speaker: "Teacher",
+                text: "Excellent, Yuna! That's called decomposition. Problem solving involves understanding the problem, planning a solution, and writing code to implement it. Felix, what is an algorithm?",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Felix",
+                text: "An algorithm is a step-by-step procedure to solve a problem. It's like a recipe that tells the computer exactly what to do to get the answer.",
+                class: "speaker-felix"
+            },
+            {
+                speaker: "Teacher",
+                text: "Perfect! An algorithm is a logical sequence of steps to solve a problem. Now, let me explain the problem-solving process. First, we analyze the problem to understand what we need to do.",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Marcus",
+                text: "After analyzing, do we design the solution? Like planning how to solve it before writing code?",
+                class: "speaker-marcus"
+            },
+            {
+                speaker: "Teacher",
+                text: "Absolutely right! We design the algorithm or plan the solution. This might include writing pseudocode, which is a simplified description of the code we will write.",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Sophy",
+                text: "What is pseudocode exactly? Is it a real programming language?",
+                class: "speaker-sophy"
+            },
+            {
+                speaker: "Teacher",
+                text: "Great question! Pseudocode is not a real programming language. It is plain language mixed with code-like structures. It helps us plan our logic before translating it into actual code.",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Yuna",
+                text: "After we write the code, do we test it? To make sure it works correctly?",
+                class: "speaker-yuna"
+            },
+            {
+                speaker: "Teacher",
+                text: "Yes, Yuna! Testing is crucial. We test with different inputs and check if the output is correct. If there are errors, we debug, which means finding and fixing mistakes in the code.",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Felix",
+                text: "What about debugging? How do we find errors in our code?",
+                class: "speaker-felix"
+            },
+            {
+                speaker: "Teacher",
+                text: "Debugging involves identifying and fixing errors, called bugs. We use debugging tools to track variable values, set breakpoints, and trace through code execution step by step to find where things go wrong.",
+                class: "speaker-teacher"
+            },
+            {
+                speaker: "Teacher",
+                text: "So to summarize: problem solving is decomposing problems into steps, creating algorithms as logical sequences, writing pseudocode before actual code, testing our solutions, and debugging any errors. These are the core concepts of programming!",
+                class: "speaker-teacher"
+            }
+        ];
+
+        let currentIndex = 0;
+        let isPlaying = false;
+        let currentUtterance = null;
+
+        // Initialize the page
+        function initializePage() {
+            document.getElementById('totalLines').textContent = dialogue.length;
+            displayCurrentLine();
+            setupEventListeners();
+        }
+
+        // Display current line
+        function displayCurrentLine() {
+            const item = dialogue[currentIndex];
+            
+            document.getElementById('currentLine').textContent = currentIndex + 1;
+            document.getElementById('speakerDisplay').textContent = item.speaker + ':';
+            document.getElementById('speakerDisplay').className = `speaker-display ${item.class}`;
+            document.getElementById('dialogueText').textContent = item.text;
+
+            // Update progress bar
+            const progress = ((currentIndex + 1) / dialogue.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === dialogue.length - 1;
+
+            // Clear status when switching lines
+            updateStatus('');
+            stopSpeech();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('speakBtn').addEventListener('click', speakCurrentLine);
+            document.getElementById('stopBtn').addEventListener('click', stopSpeech);
+            document.getElementById('prevBtn').addEventListener('click', previousLine);
+            document.getElementById('nextBtn').addEventListener('click', nextLine);
+
+            document.getElementById('speedControl').addEventListener('input', (e) => {
+                document.getElementById('speedValue').textContent = e.target.value + 'x';
+            });
+
+            document.getElementById('pitchControl').addEventListener('input', (e) => {
+                document.getElementById('pitchValue').textContent = e.target.value + 'x';
+            });
+        }
+
+        // Navigate to previous line
+        function previousLine() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCurrentLine();
+            }
+        }
+
+        // Navigate to next line
+        function nextLine() {
+            if (currentIndex < dialogue.length - 1) {
+                currentIndex++;
+                displayCurrentLine();
+            }
+        }
+
+        // Speak current line
+        function speakCurrentLine() {
+            const item = dialogue[currentIndex];
+            speakText(item.text, item.speaker);
+        }
+
+        // Speak text function
+        function speakText(text, speaker) {
+            if (isPlaying) {
+                stopSpeech();
+            }
+
+            const speedControl = document.getElementById('speedControl');
+            const pitchControl = document.getElementById('pitchControl');
+            const languageControl = document.getElementById('languageControl');
+
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = parseFloat(speedControl.value);
+            currentUtterance.pitch = parseFloat(pitchControl.value);
+            currentUtterance.lang = languageControl.value;
+
+            currentUtterance.onstart = () => {
+                isPlaying = true;
+                document.getElementById('speakBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                updateStatus(`🔊 Speaking: ${speaker}`);
+            };
+
+            currentUtterance.onend = () => {
+                isPlaying = false;
+                document.getElementById('speakBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                updateStatus('');
+            };
+
+            currentUtterance.onerror = (event) => {
+                console.error('Speech error:', event);
+                updateStatus(`❌ Error: ${event.error}`);
+                document.getElementById('speakBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+            };
+
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // Stop speech function
+        function stopSpeech() {
+            speechSynthesis.cancel();
+            isPlaying = false;
+            document.getElementById('speakBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            updateStatus('');
+        }
+
+        // Update status
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') previousLine();
+            if (e.key === 'ArrowRight') nextLine();
+            if (e.key === ' ') {
+                e.preventDefault();
+                if (!isPlaying) {
+                    speakCurrentLine();
+                }
+            }
+        });
+
+        // Initialize when page loads
+        window.addEventListener('load', initializePage);
+    </script>
+</body>
+</html>
